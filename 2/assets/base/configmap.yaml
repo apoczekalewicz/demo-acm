@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: appconfig
+  namespace: demo-acm-app
+data:
+  msg: "Good Morning!"

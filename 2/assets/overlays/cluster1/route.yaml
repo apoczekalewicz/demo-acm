@@ -1,0 +1,7 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: the-route
+  namespace: demo-acm-app
+spec:
+  host: web-app.apps.ocp1.example.lab

@@ -1,0 +1,43 @@
+- hosts: all
+  become: true
+
+  vars_files:
+  - vars/cluster-ip-map.yaml
+
+  vars:
+    endpoints: []
+
+  tasks:
+  
+  - name: Remove haproxy dropfile (only if target_clusters is empty)
+    ansible.builtin.file:
+      path: "/etc/haproxy/haproxy.d/{{app_name}}.cfg"
+      state: absent
+    when: ( target_clusters is not defined ) or ( target_clusters | length < 1 )
+    notify: haproxy restart
+
+  - name: Restart haproxy (when we delete dropfile)
+    meta: flush_handlers
+
+  - name: End (only if target_clusters is empty)
+    meta: end_play
+    when: ( target_clusters is not defined ) or ( target_clusters | length < 1 )
+
+  - name: Build array of ingress IP endpoints
+    ansible.builtin.set_fact:
+      endpoints: "{{ endpoints + [lookup('vars', item)] }}"
+    loop: "{{ target_clusters }}"
+
+  - name: create file
+    ansible.builtin.template:
+      src: haproxy_dropfile.j2
+      dest: "/etc/haproxy/haproxy.d/{{app_name}}.cfg"
+    notify: 
+      - haproxy restart
+
+  handlers:
+  - name: haproxy restart
+    ansible.builtin.service:
+      name: haproxy
+      state: restarted
+

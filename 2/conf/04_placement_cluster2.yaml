@@ -1,0 +1,9 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: cluster2
+  namespace: demo-acm-2
+spec:
+  clusterSelector:
+    matchLabels:
+      clusterid: cluster2

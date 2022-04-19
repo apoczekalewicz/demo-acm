@@ -1,0 +1,10 @@
+commonLabels:
+  org: Artur
+commonAnnotations:
+  note: Test123
+bases:
+- ../../base
+patchesStrategicMerge:
+- configmap.yaml
+- deployment.yaml
+- route.yaml

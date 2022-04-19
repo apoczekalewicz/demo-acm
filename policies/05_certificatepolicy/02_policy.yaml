@@ -1,0 +1,58 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-certificatepolicy
+  namespace: demo-acm-policies
+  annotations:
+    policy.open-cluster-management.io/standards: NIST-CSF
+    policy.open-cluster-management.io/categories: DE.CM Security Continuous Monitoring, PR.DS Data Security
+    policy.open-cluster-management.io/controls: DE.CM-8 Vulnerability Scans, PR.DS-2 Data-in-transit
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: CertificatePolicy
+        metadata:
+          name: policy-certificatepolicy-cert-expiration
+        spec:
+          namespaceSelector:
+            include:
+              - demo-acm-project1
+            exclude:
+              - kube-*
+          remediationAction: inform
+          severity: low
+          minimumDuration: 720h
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-certificatepolicy
+  namespace: demo-acm-policies
+placementRef:
+  name: placement-policy-certificatepolicy
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: policy-certificatepolicy
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-policy-certificatepolicy
+  namespace: demo-acm-policies
+spec:
+  clusterConditions:
+    - status: 'True'
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+          - local-cluster
+

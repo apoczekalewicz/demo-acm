@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: app1
+  name: app1-lb
+  namespace: demo-acm
+spec:
+  host: app1.lb.example.lab
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: app1
+    weight: 100
+  wildcardPolicy: None

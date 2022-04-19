@@ -1,0 +1,3 @@
+- aplikacja httpd
+- konfiguracja i aplikacja w jednym katalogu - demo-acm
+- placementrule clusterid=cluster1

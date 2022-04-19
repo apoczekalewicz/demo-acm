@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-deployment
+  namespace: demo-acm-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: hello
+  template:
+    metadata:
+      labels:
+        deployment: hello
+    spec:
+      containers:
+      - name: the-container
+        image: quay.io/apoczeka/app-python-hello
+        ports:
+        - containerPort: 8080
+        env:
+        - name: APPENV
+          valueFrom:
+            configMapKeyRef:
+              name: appconfig
+              key: msg

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: appconfig
+  namespace: demo-acm-app
+data:
+  msg: "The app is running on cluster1"

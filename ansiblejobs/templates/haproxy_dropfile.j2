@@ -1,0 +1,13 @@
+backend {{app_name}}.{{lb_domain}}
+    balance roundrobin
+    mode http
+    {% for endpoint in endpoints %}
+    server {{endpoint}} {{endpoint}}:80 check
+    {% endfor %}
+
+backend {{app_name}}.{{lb_domain}}-https
+    balance roundrobin
+    mode tcp
+    {% for endpoint in endpoints %}
+    server {{endpoint}} {{endpoint}}:80 check
+    {% endfor %}

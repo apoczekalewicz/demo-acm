@@ -1,0 +1,15 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: app1
+  namespace: demo-acm-3
+spec:
+  selector:
+    matchExpressions:
+      - key: app  
+        operator: In
+        values:
+        - app1
+  componentKinds:
+  - group: apps.open-cluster-management.io/v1
+    kind: Subscription

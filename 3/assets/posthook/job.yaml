@@ -1,0 +1,11 @@
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  namespace: demo-acm
+  name: job1
+spec:
+  tower_auth_secret: controlleraccess
+  job_template_name: job1
+  extra_vars:
+    app_name: app1
+    lb_domain: lb.example.lab

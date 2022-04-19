@@ -1,0 +1,93 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: demossl
+  labels:
+    app: demossl
+spec:
+  tags:
+  - name: latest
+    importPolicy:
+      scheduled: true
+    from:
+      kind: DockerImage
+      name: quay.io/centos7/httpd-24-centos7
+
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: demossl
+  labels:
+    app: demossl
+spec:
+  replicas: 1
+  selector:
+    app: demossl
+  template:
+    metadata:
+      labels:
+        app: demossl
+    spec:
+      containers:
+      - name: demossl
+        ports:
+        - containerPort: 8080
+        - containerPort: 8443
+        volumeMounts:
+          - name: cert
+            mountPath: /etc/httpd/tls
+            readOnly: true
+      volumes:
+        - name: cert
+          secret:
+            secretName: certs
+            items:
+              - key: tls.crt
+                path: localhost.crt
+              - key: tls.key
+                path: localhost.key
+  triggers:
+  - type: ConfigChange
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+        - demossl
+      from:
+        kind: ImageStreamTag
+        name: demossl:latest
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demossl
+  labels:
+    app: demossl
+spec:
+  ports:
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    app: demossl
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: demossl
+  labels:
+    app: demossl
+spec:
+  port:
+    targetPort: https
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: passthrough
+  to:
+    kind: Service
+    name: demossl
