@@ -1,8 +1,0 @@
-apiVersion: apps.open-cluster-management.io/v1
-kind: Channel
-metadata:
-  name: git1
-  namespace: demo-acm-4-ch
-spec:
-  pathname: 'https://github.com/apoczekalewicz/demo-acm.git'
-  type: GitHub
