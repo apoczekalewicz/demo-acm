@@ -1,0 +1,10 @@
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  name: job1
+spec:
+  tower_auth_secret: controlleraccess
+  job_template_name: job1
+  extra_vars:
+    app_name: app2
+    lb_domain: lb.example.lab

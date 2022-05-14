@@ -1,7 +1,7 @@
 oc -n demo-acm create deployment nginx --image=nginxinc/nginx-unprivileged:stable-alpine
 oc -n demo-acm expose deployment nginx --port=8080
 
-oc -n demo-acm run tmp-shell --image quay.io/submariner/nettest -- /bin/bash sleep infinity
+oc -n demo-acm run tmp-shell --image quay.io/submariner/nettest -- sleep infinity
 
 # oc rsh .. 
 # curl http://nginx.default.svc.cluster.local:8080

@@ -1,0 +1,16 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: app2
+  namespace: demo-acm-4
+  labels:
+    app: app2
+  annotations:
+    apps.open-cluster-management.io/github-branch: master
+    apps.open-cluster-management.io/github-path: 4/assets
+spec:
+  channel: demo-acm-4-ch/git1
+  placement: 
+    placementRef: 
+      kind: PlacementRule
+      name: applabel
