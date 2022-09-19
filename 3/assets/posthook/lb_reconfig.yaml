@@ -2,7 +2,7 @@ apiVersion: tower.ansible.com/v1alpha1
 kind: AnsibleJob
 metadata:
   namespace: demo-acm
-  name: lb_reconfig
+  name: lbreconfig
 spec:
   tower_auth_secret: controlleraccess
   job_template_name: lb_reconfig
