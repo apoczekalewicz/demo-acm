@@ -4,7 +4,7 @@
 - tworzone sa domysle routy oraz routa kierujaca na globalny lb
 
 - Dostep do Ansible Controllera poprzez secret 
-- W Ansible musi byc jobtemplate o nazwie: job1 (../ansiblejob/job1.yaml)
+- W Ansible musi byc jobtemplate o nazwie: lb_reconfig (../ansiblejob/lb_reconfig.yaml)
 - w ../ansiblejobs/README.txt opisane sa uzywane zmienne
 
 Przygotowanie haproxy:
