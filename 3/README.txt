@@ -5,6 +5,7 @@
 
 - Dostep do Ansible Controllera poprzez secret 
 - W Ansible musi byc jobtemplate o nazwie: lb_reconfig (../ansiblejob/lb_reconfig.yaml)
+  https://github.com/apoczekalewicz/demo-acm/blob/master/ansiblejobs/lb_reconfig.yaml
 - w ../ansiblejobs/README.txt opisane sa uzywane zmienne
 
 Przygotowanie haproxy:
