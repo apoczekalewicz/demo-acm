@@ -1,0 +1,13 @@
+apiVersion: tower.ansible.com/v1alpha1
+kind: AnsibleJob
+metadata:
+  generateName: lbreconfig-
+spec:
+  tower_auth_secret: controlleraccess
+  job_template_name: lb_reconfig
+  extra_vars:
+    app_name: application
+    lb_domain: lb.example.lab
+    target_clusters:
+      - local-cluster
+
