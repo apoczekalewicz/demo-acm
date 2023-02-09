@@ -1,2 +1,2 @@
 #!/bin/bash
-oc describe ccr -A
+oc get ccr -n openshift-compliance
