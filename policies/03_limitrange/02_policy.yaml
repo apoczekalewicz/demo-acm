@@ -23,7 +23,7 @@ spec:
             exclude:
               - kube-*
             include:
-              - demo-acm-project1
+              - project1
           object-templates:
             - complianceType: musthave
               objectDefinition:
