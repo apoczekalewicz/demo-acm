@@ -91,5 +91,9 @@ spec:
     - status: 'True'
       type: ManagedClusterConditionAvailable
   clusterSelector:
-    matchExpressions: []
+    matchExpressions:
+      - key: compliance
+        operator: In
+        values:
+          - "true"
 
