@@ -30,4 +30,4 @@ spec:
                 kind: Namespace
                 apiVersion: v1
                 metadata:
-                  name: demo-acm-project1
+                  name: project1
