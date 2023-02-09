@@ -44,7 +44,7 @@ spec:
             exclude:
               - kube-*
             include:
-              - '*'
+              - project1
           object-templates:
             - complianceType: mustnothave
               objectDefinition:
